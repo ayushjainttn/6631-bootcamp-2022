@@ -1,3 +1,4 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,7 +9,7 @@ enum TrnStatus{
     FAIL
 }
 class Transaction{
-    private static int trnId = 5000;
+    private static int trnId = 4589;
     private ZonedDateTime trnBegTime;
     private ZonedDateTime trnEndTime;
     private TrnStatus trnStatus;
@@ -26,11 +27,9 @@ class Transaction{
         this.amtCredit = amtCredit;
         this.accountNumber = accountNumber;
         this.ifscCode = ifscCode;
+        trnId +=1;
     }
 
-    Transaction(){
-        trnId += 1;
-    }
 
     void trnBegin(){
         trnBegTime = ZonedDateTime.now();
@@ -47,11 +46,14 @@ class Transaction{
     private void trnLog(){
         try{
             String path = "/home/ayush/IdeaProjects/Bootcamp2022/Intro_To_Java_2/Logs/" + ifscCode + "/" + accountNumber + ".txt";
-            System.out.println(path);
+            //System.out.println(path);
             File file = new File(path);
             file.createNewFile();
-            FileWriter myFile = new FileWriter("/home/ayush/IdeaProjects/Bootcamp2022/Intro_To_Java_2/Logs/"+ifscCode+"/"+accountNumber+".txt");
-            myFile.append(trnId+"\t"+accountNumber+"\t"+trnBegTime+"\t"+trnEndTime+"\t"+amtBefTrn+"\t"+amtDebit+"\t"+amtCredit+"\t"+amtAftTrn+"\t"+trnStatus+"\t"+trnMsg);
+            FileWriter myFile = new FileWriter("/home/ayush/IdeaProjects/Bootcamp2022/Intro_To_Java_2/Logs/"+ifscCode+"/"+accountNumber+".txt", true);
+            BufferedWriter bw = new BufferedWriter(myFile);
+            bw.write(trnId+"\t"+accountNumber+"\t"+trnBegTime+"\t"+trnEndTime+"\t"+amtBefTrn+"\t"+amtDebit+"\t"+amtCredit+"\t"+amtAftTrn+"\t"+trnStatus+"\t"+trnMsg);
+            bw.newLine();
+            bw.close();
             myFile.close();
         }catch (IOException e){
             System.out.println(e.getMessage());
