@@ -29,15 +29,6 @@ class Employee{
         this.salary=salary;
         this.city=city;
     }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "fullName='" + fullName + '\'' +
-                ", salary=" + salary +
-                ", city='" + city + '\'' +
-                '}';
-    }
 }
 
 public class Question4 {
@@ -53,9 +44,10 @@ public class Question4 {
         Employee e5 = new Employee("Vikash", 10000L,"Banaras");
 
         System.out.println(
-                Stream.of(e1,e2,e3,e4,e5).filter(employee -> employee.salary<5000 && employee.city.equals("Delhi")).collect(Collectors.toSet())
-        );
-
-
+                Stream
+                        .of(e1,e2,e3,e4,e5)
+                        .filter(employee -> employee.salary<5000 && employee.city.equals("Delhi"))
+                        .map(employee -> employee.fullName.split(" ")[0])
+                        .collect(Collectors.toSet()));
     }
 }
