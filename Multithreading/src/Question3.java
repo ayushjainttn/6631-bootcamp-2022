@@ -3,7 +3,7 @@ class DoWork{
         System.out.println(Thread.currentThread().getName()+" is executing Synchronized Method...");
         for (int i=1; i<=10; i++){
             System.out.println(n+" x "+i+" = "+n*i);
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
         }
         System.out.println(Thread.currentThread().getName()+" has executed successfully");
     }
@@ -13,7 +13,7 @@ class DoWork{
             System.out.println(Thread.currentThread().getName()+" is executing Synchronized Block...");
             for (int i=1; i<=10; i++){
                 System.out.println(n+" x "+i+" = "+n*i);
-                Thread.sleep(1000);
+                //Thread.sleep(1000);
             }
             System.out.println(Thread.currentThread().getName()+" has executed successfully");
         }
