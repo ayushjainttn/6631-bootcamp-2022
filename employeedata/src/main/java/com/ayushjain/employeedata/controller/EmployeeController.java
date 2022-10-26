@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class EmployeeController {
@@ -35,5 +36,20 @@ public class EmployeeController {
     @GetMapping(path = "/employees/count")
     public long getEmployeeCount(){
         return employeeService.countEmployees();
+    }
+
+    @GetMapping(path = "/employees/{empName}")
+    public List<Employee> getEmployeesByName(@PathVariable String empName){
+        return employeeService.findEmployeeByName(empName);
+    }
+
+    @GetMapping(path = "/employees/nameswithlettera")
+    public List<Employee> getEmployeesByNameWithStartLetterA(){
+        return employeeService.findEmployeeNameStartingWith();
+    }
+
+    @GetMapping(path = "/employees/agebetween28and32")
+    public List<Employee> getEmployeesByAgeBetween(){
+        return employeeService.findEmployeeBetweenAge();
     }
 }

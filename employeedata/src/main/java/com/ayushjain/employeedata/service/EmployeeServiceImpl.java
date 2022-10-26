@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
     @Autowired
@@ -44,5 +46,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     public long countEmployees(){
         return employeeRepository.count();
+    }
+
+    public List<Employee> findEmployeeByName(String name){
+        return employeeRepository.findByName(name);
+    }
+
+    public List<Employee> findEmployeeNameStartingWith(){
+        return employeeRepository.findByNameStartingWith("A");
+    }
+
+    public List<Employee> findEmployeeBetweenAge(){
+        return employeeRepository.findByAgeBetween(28,32);
     }
 }
