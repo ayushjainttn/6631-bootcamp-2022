@@ -12,14 +12,14 @@ import java.time.LocalDateTime;
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity<CustomizedErrorFormat> handleException(Exception ex) throws Exception{
-        CustomizedErrorFormat errorFormat = new CustomizedErrorFormat(LocalDateTime.now(), ex.getMessage());
+    public final ResponseEntity<CustomizedErrorFormat> handleAllException(Exception ex, WebRequest request) throws Exception{
+        CustomizedErrorFormat errorFormat = new CustomizedErrorFormat(LocalDateTime.now(), ex.getMessage(), request.getDescription(true));
         return new ResponseEntity<>(errorFormat, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(EmployeeNotFoundException.class)
-    public final ResponseEntity<CustomizedErrorFormat> handleNotFoundException(Exception ex) throws EmployeeNotFoundException{
-        CustomizedErrorFormat errorFormat = new CustomizedErrorFormat(LocalDateTime.now(), ex.getMessage());
+    public final ResponseEntity<CustomizedErrorFormat> handleNotFoundException(Exception ex, WebRequest request) throws EmployeeNotFoundException{
+        CustomizedErrorFormat errorFormat = new CustomizedErrorFormat(LocalDateTime.now(), ex.getMessage(),request.getDescription(true));
         return new ResponseEntity<>(errorFormat, HttpStatus.NOT_FOUND);
     }
 }

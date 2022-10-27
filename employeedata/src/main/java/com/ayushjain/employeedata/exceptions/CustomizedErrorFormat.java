@@ -10,9 +10,10 @@ import java.time.LocalDateTime;
 public class CustomizedErrorFormat {
     private LocalDateTime timeStamp;
     private String message;
-
-    public CustomizedErrorFormat(LocalDateTime timeStamp, String message) {
+    private String description;
+    public CustomizedErrorFormat(LocalDateTime timeStamp, String message, String description) {
         this.timeStamp = timeStamp;
         this.message = message;
+        this.description = description;
     }
 }

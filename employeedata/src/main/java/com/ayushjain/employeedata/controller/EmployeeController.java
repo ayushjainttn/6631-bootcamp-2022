@@ -3,6 +3,9 @@ package com.ayushjain.employeedata.controller;
 import com.ayushjain.employeedata.entity.Employee;
 import com.ayushjain.employeedata.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,12 +22,13 @@ public class EmployeeController {
     }
 
     @PostMapping(path = "/employees")
-    public Employee addEmployees(@Valid @RequestBody Employee empObj){
-        return employeeService.saveEmployee(empObj);
+    public ResponseEntity<Employee> addEmployees(@Valid @RequestBody Employee empObj){
+        Employee empCreated = employeeService.saveEmployee(empObj);
+        return new ResponseEntity<>(empCreated, HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/employees/{empId}/updatedetails")
-    public Employee modifyEmployee(@PathVariable int empId, Employee empObj){
+    public Employee modifyEmployee(@PathVariable int empId, @RequestBody Employee empObj){
         return employeeService.updateEmployee(empId,empObj);
     }
 
@@ -43,13 +47,18 @@ public class EmployeeController {
         return employeeService.findEmployeeByName(empName);
     }
 
-    @GetMapping(path = "/employees/nameswithlettera")
-    public List<Employee> getEmployeesByNameWithStartLetterA(){
-        return employeeService.findEmployeeNameStartingWith();
+    @GetMapping(path = "/employees/namestartwith/{startChar}")
+    public List<Employee> getEmployeesByNameWithStartLetterA(@PathVariable String startChar){
+        return employeeService.findEmployeeNameStartingWith(startChar);
     }
 
     @GetMapping(path = "/employees/agebetween28and32")
     public List<Employee> getEmployeesByAgeBetween(){
         return employeeService.findEmployeeBetweenAge();
+    }
+
+    @GetMapping(path = "/employees/pages/{pageNumber}")
+    public Page<Employee> getEmployeesByAgeAndPage(@PathVariable int pageNumber){
+        return employeeService.findEmployeeSortByAgeAndPagination(pageNumber);
     }
 }
