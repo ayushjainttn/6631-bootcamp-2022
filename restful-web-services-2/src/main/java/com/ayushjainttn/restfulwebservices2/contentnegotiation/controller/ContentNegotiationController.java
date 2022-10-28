@@ -19,12 +19,12 @@ public class ContentNegotiationController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(path = "/users/get")
+    @GetMapping(path = "/contentnegotiation/users/get")
     public List<Users> getUsers(){
         return userService.getAllUsers();
     }
 
-    @PostMapping(path = "/users/post")
+    @PostMapping(path = "/contentnegotiation/users/post")
     public ResponseEntity<Users> addUsers(@Valid @RequestBody Users user){
         Users newUser = userService.addUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);

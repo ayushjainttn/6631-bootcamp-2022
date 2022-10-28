@@ -9,7 +9,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Setter
-@JsonFilter("myBean")
+@JsonFilter("myBean") //will not work when static call will happen
 public class Student {
     private int studentId;
     private String studentName;
