@@ -1,7 +1,7 @@
 package com.ayushjainttn.springjpahibernate2;
 
-import com.ayushjainttn.springjpahibernate2.entity.Employee;
-import com.ayushjainttn.springjpahibernate2.repository.EmployeeRepository;
+import com.ayushjainttn.springjpahibernate2.nativesqlandjpql.entity.Employee;
+import com.ayushjainttn.springjpahibernate2.nativesqlandjpql.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +26,10 @@ class Springjpahibernate2ApplicationTests {
 	@Test
 	public void testAddEmployees(){
 		Employee emp1 = new Employee();
-		emp1.setFirstName("Anjali");
-		emp1.setLastName("Singh");
-		emp1.setAge(25);
-		emp1.setSalary(34089);
+		emp1.setFirstName("Harsh");
+		emp1.setLastName("Nayan");
+		emp1.setAge(48);
+		emp1.setSalary(50283);
 		employeeRepository.save(emp1);
 	}
 
@@ -54,5 +54,18 @@ class Springjpahibernate2ApplicationTests {
 	public void testDeleteEmployeesWithMinSalary(){
 		List<Object[]> empMinSalary = employeeRepository.findEmployeesWithMinSalary();
 		employeeRepository.deleteEmployeesWithMinSalary((Double)empMinSalary.get(0)[0]);
+	}
+
+	@Test
+	public void testFindEmployeeWithLastName(){
+		List<Object[]> empList = employeeRepository.findEmployeesWithLastName("Singh");
+		empList.forEach(employee-> System.out.println(employee[0]+" "+employee[1]+" "+employee[2]));
+	}
+
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testDeleteEmployeeWithAgeGreaterThan(){
+		employeeRepository.deleteEmployeesWithAgeGreaterThan(45);
 	}
 }

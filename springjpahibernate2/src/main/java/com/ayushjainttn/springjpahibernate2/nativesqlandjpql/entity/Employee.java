@@ -1,4 +1,4 @@
-package com.ayushjainttn.springjpahibernate2.entity;
+package com.ayushjainttn.springjpahibernate2.nativesqlandjpql.entity;
 
 import lombok.Getter;
 import lombok.Setter;

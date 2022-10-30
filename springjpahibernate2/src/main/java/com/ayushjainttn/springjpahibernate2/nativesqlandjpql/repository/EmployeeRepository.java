@@ -1,6 +1,6 @@
-package com.ayushjainttn.springjpahibernate2.repository;
+package com.ayushjainttn.springjpahibernate2.nativesqlandjpql.repository;
 
-import com.ayushjainttn.springjpahibernate2.entity.Employee;
+import com.ayushjainttn.springjpahibernate2.nativesqlandjpql.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -50,7 +50,14 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     2. Delete all employees with age greater than 45(Should be passed as a parameter)
      */
 
-    //Querying Database using Native SQL
+    //Querying 1 Query Database using Native SQL
+    @Query(value = "SELECT empId, empFirstName, empAge FROM employeeTable WHERE empLastName=:lastname", nativeQuery = true)
+    public List<Object[]> findEmployeesWithLastName(@Param("lastname") String lastName);
+
+    //Querying 2 Query Database using Native SQL
+    @Modifying
+    @Query(value = "DELETE FROM employeeTable WHERE empAge > :age", nativeQuery = true)
+    public void deleteEmployeesWithAgeGreaterThan(@Param("age") int age);
 
 
 }
