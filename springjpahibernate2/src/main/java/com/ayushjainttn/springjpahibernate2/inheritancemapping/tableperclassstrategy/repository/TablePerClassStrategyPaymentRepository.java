@@ -1,0 +1,7 @@
+package com.ayushjainttn.springjpahibernate2.inheritancemapping.tableperclassstrategy.repository;
+
+import com.ayushjainttn.springjpahibernate2.inheritancemapping.tableperclassstrategy.entity.TablePerClassStrategyPayment;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TablePerClassStrategyPaymentRepository extends JpaRepository<TablePerClassStrategyPayment, Integer> {
+}
